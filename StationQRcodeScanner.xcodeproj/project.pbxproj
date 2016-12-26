@@ -73,6 +73,7 @@
 				0409037B1E09101600277EA3 /* Info.plist */,
 				040903811E09239D00277EA3 /* QRcodeViewController.swift */,
 				040903831E09262A00277EA3 /* StatusViewController.swift */,
+				046D85081E0EA68600BF8243 /* WaitingPageViewController.swift */,
 			);
 			path = StationQRcodeScanner;
 			sourceTree = "<group>";
