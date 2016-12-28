@@ -8,10 +8,136 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIPickerViewDataSource ,UIPickerViewDelegate {
+  
+
+
     
     @IBOutlet weak var emailText: UITextField!
     @IBOutlet weak var passwordText: UITextField!
+    
+    @IBOutlet weak var linePicker: UIPickerView!
+    
+    @IBOutlet weak var stationPicker: UIPickerView!
+    let lineArray = ["板南線","新店線","文湖線","淡水線","中蘆線"]
+    let blStationArray = ["南京復興"]
+    let gStationArray = ["松江南京"]
+    let brStationArray = ["大直"]
+    let rStationArray = ["雙連"]
+    let oStaionArray = ["行天宮"]
+    var didSelectLineArray = "板南線" //
+    var station1 = "1"
+    
+    var loginJSON = [String:Any]()
+    var loginStatus = ""
+    var loginAuthToken = ""
+    var loginUserID = ""
+    var appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView == linePicker{
+            return lineArray.count
+        }
+        else{
+            if didSelectLineArray == "板南線"{
+                print("bl")
+                return blStationArray.count
+            }else if didSelectLineArray == "新店線"{
+                print("g")
+                return gStationArray.count
+            }else if didSelectLineArray == "文湖線"{
+                print("br")
+                return brStationArray.count
+            }else if didSelectLineArray == "淡水線"{
+                print("R")
+                return rStationArray.count
+            }else if didSelectLineArray == "中蘆線"{
+                print("y")
+                return oStaionArray.count
+            }else{
+                print("有問題")
+                return 0
+            }
+//                return 1
+        }
+    }
+    //決定要顯示的內容
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if pickerView == linePicker{
+            return lineArray[row]
+        }else{
+            if didSelectLineArray == "板南線"{
+                return blStationArray[row]
+            }else if didSelectLineArray == "新店線"{
+                return gStationArray[row]
+            }else if didSelectLineArray == "文湖線"{
+                return brStationArray[row]
+            }else if didSelectLineArray == "淡水線"{
+                return rStationArray[row]
+            }else if didSelectLineArray == "中蘆線"{
+                return oStaionArray[row]
+            }else{
+            return blStationArray[row]
+           }
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
+        if pickerView == linePicker{
+            if lineArray[row] == "板南線" {
+                print("aaa")
+                didSelectLineArray = "板南線"
+            station1 = "1"
+            }else if lineArray[row] == "新店線"{ // lineArray 的第一個等於didSelectLineArray
+            didSelectLineArray = "新店線"
+                station1 = "2"
+                print("bbb")
+            }else if lineArray[row] == "文湖線"{
+            didSelectLineArray = "文湖線"
+                station1 = "3"
+                print("ccc")
+            }else if lineArray[row] == "淡水線"{
+                didSelectLineArray = "淡水線"
+            station1 = "4"
+                print("ddd")
+            }else if lineArray[row] == "中蘆線"{
+                didSelectLineArray = "中蘆線"
+            station1 = "5"
+            print("eee")
+            }
+
+
+            stationPicker.reloadAllComponents()
+            
+            print(didSelectLineArray)
+        }else{
+          //  print(brStationArray)
+        }
+
+    
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+//        print("isLoginStatus",isLoginStatus)
+//        print("token-->>",appDelegate.jsonBackToken)
+//        print("UserID-->>",appDelegate.jsonBackUserID)
+//        print(appDelegate)
+//        if (appDelegate.jsonBackToken != "") &&  (appDelegate.jsonBackUserID != ""){
+//            labelForUserNameDidLogin.text = appDelegate.userNameDidLogin
+//            isLoginStatus = "Login"
+//            print("登入狀態")
+//        }else{
+//            isLoginStatus = "Logout"
+//            print("登出狀態")
+//        }
+
+        
+    }
     
     @IBAction func loginButton(_ sender: Any) {
         
@@ -21,41 +147,107 @@ class ViewController: UIViewController {
                 let url = URL(string: "http://139.162.76.87/api/v1/login")
                 var request = URLRequest(url: url!, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: 30)
                 request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-                
-                
                 request.httpMethod = "POST"
                 let loverDictionary = ["email": emailText.text!, "password":passwordText.text!]
+                
+                
                 do {
                     
                     print("loverDictionary \(loverDictionary)")
                     
                     let data = try  JSONSerialization.data(withJSONObject: loverDictionary, options: [])
-                    let task = URLSession.shared.uploadTask(with: request, from: data) { (data, res, err) in
-                        let str = String(data: data!, encoding: .utf8)
-                        print("result \(str)")
-                        DispatchQueue.main.sync {
-                            let name = Notification.Name("addData")
-                            NotificationCenter.default.post(name: name, object: nil, userInfo: loverDictionary)
+                    let task = URLSession.shared.uploadTask(with: request, from: data) {
+                        (data, res, err) in
+                        
+                        if err == nil{ //如果錯誤= nil 意思就是沒有錯誤 執行下面這個程式碼
+                            let str = String(data: data!, encoding: .utf8)
+                            print("result \(str)")
                             
-                            _ = self.navigationController?.popViewController(animated: true )
+                            do{
+                                try? self.loginJSON = JSONSerialization.jsonObject(with: data!) as! [String : Any]
+                                let getTheJSON = "\(self.loginJSON["message"]!)"
+                                print("getTheJSON:\(getTheJSON)")
+                                if getTheJSON == "Ok"{
+                                    
+                                    print("有在這邊嗎")
+
+                                    self.appDelegate.jsonBackToken = "\(self.loginJSON["auth_token"]!)" ?? ""
+                                    self.appDelegate.jsonBackUserID = "\(self.loginJSON["user_id"]!)" ?? ""
+                                    //  self.appDelegate.userNameDidLogin = self.textfieldUserName.text! ?? ""
+                                    //   print("a=",a)
+                                    //  print("b=",self.appDelegate.jsonBackToken)
+                                    //  print("c=",self.appDelegate.jsonBackUserID)
+                                    // if "\(a)" == "Ok" {
+                                    print(self.appDelegate.jsonBackUserID)
+                                    DispatchQueue.main.async {  //目前看起來沒有用
+                                        //轉場去下一個畫面
+                                        let lightGreen = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "QRCodeScanner") as? QRcodeViewController
+                                        lightGreen?.location = self.station1
+                                        self.present(lightGreen!, animated: true, completion: nil)
+                                        
+
+                                        
+                                        //                                          self.labelForUserNameDidLogin.text = "歡迎\((loginDataDictionary["email"])!)"
+                                        //    self.showLogoutUI()
+                                        //    self.textfieldUserName.text = ""
+                                        //    self.textfieldUserPassword.text = ""
+                                        //                                            if self.whoSend == "QRCodePage"{
+                                        //                                                print("切換回去")
+                                        //                                                self.whoSend = "" //清空
+                                        //                                                self.navigationController?.popViewController(animated: true)  轉到下一頁
+                                        //                                                self.tabBarController?.selectedIndex = 2
+                                        //                                                //self.dismiss(animated: true, completion: nil) //ok
+                                        //                                                //                    return self.loginJson
+                                        //                                            }
+                                    }
+                                    // }
+                                }else{
+                                    DispatchQueue.main.sync {
+                                        let name = Notification.Name("addData")
+                                        NotificationCenter.default.post(name: name, object: nil, userInfo: loverDictionary)
+                                        
+                                        _ = self.navigationController?.popViewController(animated: true )
+                                    }
+                                }
+                            }catch{
+                                print(err)
+                            }
+                        }else{
+                            print(err) // 若有錯誤列印錯誤
                         }
                     }
                     task.resume()
-                    let lightGreen = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "QRCodeScanner")
-                    present(lightGreen, animated: true, completion: nil)
                     
-                }
+                                 }
                 catch {
                     print("error\(error.localizedDescription)")
                 }
             }else{
-                 showAlert(title: "Opps!", message: "請輸入email和密碼")
+                showAlert(title: "Opps!", message: "請輸入email和密碼")
             }
             
         }
         
     }
-    
+
+
+
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    func showAlert(title:String?,message:String?){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert,animated: true, completion:  nil)
+    }
+
+}
+
+
+
+
 //    print("YOOOOOOOOOOOOOOOO")
 //    //使用者按下log in 按鈕，打算登入
 //    if let emailString = userTextInput.text, let passwordString = passwordTextInput.text{ print("HELLO")
@@ -77,28 +269,49 @@ class ViewController: UIViewController {
 //        }else{
 //            showAlert(title: "Opps!", message: "請輸入email和密碼")
 //        }
-//        
-//        
+//
+//
 //    }
-//    
+//
 //}
-
-
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    func showAlert(title:String?,message:String?){
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert,animated: true, completion:  nil)
-    }
-
-}
-
+//
+//    let numberArray = ["1","2","3","4","5","6","7","8"]
+//    let fruitArray = ["apple","banana","mango","watermelon"]
+//    let fruitArray2 = ["guava","pineapple","orange","chocolate"]
+//
+//    //1.picker view 有幾個component
+//    func numberOfComponents(in pickerView: UIPickerView) -> Int{
+//        return 2
+//    }
+//    //2.picker vieq 每個component有幾列，有幾個選項要顯示
+//    func pickerView(_ pickerView:UIPickerView, numberOfRowsInComponent component: Int) ->Int {
+//        if component == 0{
+//            return numberArray.count
+//        }else{
+//            return fruitArray.count
+//        }
+//
+//    }
+//
+//
+//    //3.決定要顯示的內容
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+////        for i in 1...10
+//        if component == 0{
+//
+//            return numberArray[row]
+//
+//        }else{
+//            return fruitArray[row]
+//        }
+//
+//
+//    }
+//    //4.選到某一列會觸發的方法
+//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+//        if component == 0{
+//            print("number:\(numberArray)[row])")
+//        }else{
+//            print("fruit:\(fruitArray[row])")
+//        }
+//    }

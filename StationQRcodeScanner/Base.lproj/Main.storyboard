@@ -41,8 +41,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DpH-n6-fF0">
-                                <rect key="frame" x="110" y="108" width="187" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DpH-n6-fF0">
+                                <rect key="frame" x="126" y="108" width="187" height="30"/>
                                 <color key="backgroundColor" red="0.98195451498031616" green="0.43767988681793213" blue="0.41604399681091309" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="9ef-rU-dIJ"/>
@@ -60,8 +60,8 @@
                                     <action selector="loginButton:" destination="IX0-ha-dPs" eventType="touchUpInside" id="tVh-rS-FBo"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="P3m-YM-fMA">
-                                <rect key="frame" x="110" y="62" width="187" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="P3m-YM-fMA">
+                                <rect key="frame" x="126" y="62" width="187" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.44008535168572338" blue="0.41608767692083004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="vLB-B5-lqd"/>
@@ -71,16 +71,40 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cmG-G5-BX4">
+                                <rect key="frame" x="0.0" y="354" width="145" height="69"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="69" id="MIq-yF-nGj"/>
+                                    <constraint firstAttribute="width" constant="145" id="O0D-ct-FlZ"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="dataSource" destination="IX0-ha-dPs" id="Opw-Ro-GSr"/>
+                                    <outlet property="delegate" destination="IX0-ha-dPs" id="JGp-9X-3b3"/>
+                                </connections>
+                            </pickerView>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VTH-e2-KAd">
+                                <rect key="frame" x="175" y="354" width="145" height="69"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="IX0-ha-dPs" id="KYM-5L-PD8"/>
+                                    <outlet property="delegate" destination="IX0-ha-dPs" id="air-tt-fqH"/>
+                                </connections>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="fWq-ec-hP0" firstAttribute="leading" secondItem="XA1-zq-e2t" secondAttribute="leadingMargin" constant="10" id="1Ur-5L-Bwx"/>
                             <constraint firstAttribute="trailing" secondItem="MLj-fI-WbF" secondAttribute="trailing" constant="137" id="5ac-cO-FZf"/>
+                            <constraint firstItem="cmG-G5-BX4" firstAttribute="leading" secondItem="XA1-zq-e2t" secondAttribute="leading" id="5er-oo-1yb"/>
                             <constraint firstItem="34S-Yf-9TO" firstAttribute="leading" secondItem="XA1-zq-e2t" secondAttribute="leadingMargin" constant="10" id="5lM-Yi-eBE"/>
                             <constraint firstItem="MLj-fI-WbF" firstAttribute="top" secondItem="DpH-n6-fF0" secondAttribute="bottom" constant="92" id="FRC-QP-dDA"/>
                             <constraint firstItem="P3m-YM-fMA" firstAttribute="centerY" secondItem="fWq-ec-hP0" secondAttribute="centerY" id="KjN-lX-NUE"/>
+                            <constraint firstItem="cmG-G5-BX4" firstAttribute="bottom" secondItem="VTH-e2-KAd" secondAttribute="bottom" id="L8I-6b-tx0"/>
                             <constraint firstItem="DpH-n6-fF0" firstAttribute="bottom" secondItem="34S-Yf-9TO" secondAttribute="bottom" id="XIK-6F-YV6"/>
+                            <constraint firstItem="VTH-e2-KAd" firstAttribute="leading" secondItem="cmG-G5-BX4" secondAttribute="trailing" constant="30" id="Zz4-HY-gtu"/>
+                            <constraint firstItem="c7G-Y9-dYs" firstAttribute="top" secondItem="cmG-G5-BX4" secondAttribute="bottom" constant="145" id="anE-2c-trf"/>
+                            <constraint firstAttribute="trailing" secondItem="VTH-e2-KAd" secondAttribute="trailing" id="b9u-iG-B9d"/>
                             <constraint firstItem="fWq-ec-hP0" firstAttribute="top" secondItem="51t-k3-ZM3" secondAttribute="bottom" constant="46" id="fPt-M7-4yP"/>
+                            <constraint firstItem="cmG-G5-BX4" firstAttribute="top" secondItem="VTH-e2-KAd" secondAttribute="top" id="fsB-u7-rv7"/>
                             <constraint firstItem="34S-Yf-9TO" firstAttribute="top" secondItem="fWq-ec-hP0" secondAttribute="bottom" constant="30" id="m5c-pC-vdb"/>
                             <constraint firstAttribute="trailing" secondItem="P3m-YM-fMA" secondAttribute="trailing" constant="7" id="n3s-Db-JdD"/>
                             <constraint firstItem="MLj-fI-WbF" firstAttribute="leading" secondItem="XA1-zq-e2t" secondAttribute="leading" constant="137" id="ngh-oR-sIB"/>
@@ -90,7 +114,9 @@
                     </view>
                     <connections>
                         <outlet property="emailText" destination="P3m-YM-fMA" id="JUf-Mg-agL"/>
+                        <outlet property="linePicker" destination="cmG-G5-BX4" id="w9P-vx-dGT"/>
                         <outlet property="passwordText" destination="DpH-n6-fF0" id="Qxx-qT-gmy"/>
+                        <outlet property="stationPicker" destination="VTH-e2-KAd" id="gDM-bU-Wsj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="are-zb-9dZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -177,9 +203,41 @@
             </objects>
             <point key="canvasLocation" x="765" y="36"/>
         </scene>
+        <!--Waiting Page View Controller-->
+        <scene sceneID="tSf-kz-0xm">
+            <objects>
+                <viewController storyboardIdentifier="WaitingPageViewController" id="OJc-Vr-JWi" customClass="WaitingPageViewController" customModule="StationQRcodeScanner" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xe0-2d-a7m"/>
+                        <viewControllerLayoutGuide type="bottom" id="fSq-Fm-frq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="lnO-3b-gal">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Stand_by_page" translatesAutoresizingMaskIntoConstraints="NO" id="XNx-ku-5wc">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="568" id="6LG-Qb-ypP"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="XNx-ku-5wc" firstAttribute="leading" secondItem="lnO-3b-gal" secondAttribute="leading" id="08E-vB-OFJ"/>
+                            <constraint firstItem="fSq-Fm-frq" firstAttribute="top" secondItem="XNx-ku-5wc" secondAttribute="bottom" id="Ndc-Th-jKz"/>
+                            <constraint firstAttribute="trailing" secondItem="XNx-ku-5wc" secondAttribute="trailing" id="pdh-wc-rhy"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bS4-x7-dDQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="765" y="757.3943661971831"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Return" width="375" height="667"/>
+        <image name="Stand_by_page" width="375" height="667"/>
         <image name="Success_to_return" width="375" height="667"/>
     </resources>
 </document>

@@ -14,6 +14,7 @@
 		0409037A1E09101500277EA3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 040903781E09101500277EA3 /* LaunchScreen.storyboard */; };
 		040903821E09239D00277EA3 /* QRcodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040903811E09239D00277EA3 /* QRcodeViewController.swift */; };
 		040903841E09262A00277EA3 /* StatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040903831E09262A00277EA3 /* StatusViewController.swift */; };
+		046D85091E0EA68600BF8243 /* WaitingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D85081E0EA68600BF8243 /* WaitingPageViewController.swift */; };
 		39DA3C9C1C40C841EDD9EAD7 /* Pods_StationQRcodeScanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1599FD47097F6B49E522D4E9 /* Pods_StationQRcodeScanner.framework */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +28,7 @@
 		0409037B1E09101600277EA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		040903811E09239D00277EA3 /* QRcodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRcodeViewController.swift; sourceTree = "<group>"; };
 		040903831E09262A00277EA3 /* StatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusViewController.swift; sourceTree = "<group>"; };
+		046D85081E0EA68600BF8243 /* WaitingPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitingPageViewController.swift; sourceTree = "<group>"; };
 		1599FD47097F6B49E522D4E9 /* Pods_StationQRcodeScanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StationQRcodeScanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4817FB12A75195CDF2EB344 /* Pods-StationQRcodeScanner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StationQRcodeScanner.release.xcconfig"; path = "Pods/Target Support Files/Pods-StationQRcodeScanner/Pods-StationQRcodeScanner.release.xcconfig"; sourceTree = "<group>"; };
 		F52E517F0EF10E0C478A6140 /* Pods-StationQRcodeScanner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StationQRcodeScanner.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StationQRcodeScanner/Pods-StationQRcodeScanner.debug.xcconfig"; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 			files = (
 				040903841E09262A00277EA3 /* StatusViewController.swift in Sources */,
 				040903721E09101500277EA3 /* ViewController.swift in Sources */,
+				046D85091E0EA68600BF8243 /* WaitingPageViewController.swift in Sources */,
 				040903701E09101500277EA3 /* AppDelegate.swift in Sources */,
 				040903821E09239D00277EA3 /* QRcodeViewController.swift in Sources */,
 			);

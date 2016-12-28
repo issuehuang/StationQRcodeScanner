@@ -15,7 +15,7 @@ protocol StatusViewControllerDelegate{
 
 class StatusViewController: UIViewController {
     var delegate:StatusViewControllerDelegate? = nil
-    var QRcodeStatus:String?
+    var QRcodeStatus:String? //接受上一頁的值
 
     @IBOutlet weak var statusImage: UIImageView!
     override func viewDidLoad() {
@@ -29,11 +29,17 @@ class StatusViewController: UIViewController {
          }
 
         // Do any additional setup after loading the view.
-//        Timer.scheduledTimer(timeInterval: 2, target: self, selector:#selector(StatusViewController.dismiss as (StatusViewController) -> () -> ()), userInfo: nil, repeats: false)
+        Timer.scheduledTimer(timeInterval: 2, target: self, selector:#selector(StatusViewController.dismiss as (StatusViewController) -> () -> ()), userInfo: nil, repeats: false)
+        
+        _ = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(checkTouch), userInfo: nil, repeats: true)
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(StatusViewController.dismiss as (StatusViewController) -> () -> ()))
         self.view.addGestureRecognizer(tap)
     }
     
+    func checkTouch(){
+        print("checkTouch")
+    }
     
 
     override func didReceiveMemoryWarning() {
