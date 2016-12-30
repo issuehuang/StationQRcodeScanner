@@ -20,13 +20,14 @@ class StatusViewController: UIViewController {
     @IBOutlet weak var statusImage: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(QRcodeStatus)
+        print("QRcode:",QRcodeStatus)
         print("阿幹")
-        if QRcodeStatus == "1234"{
+        
+//        if QRcodeStatus == "1234" {
         statusImage.image = UIImage(named: "Success_to_return")
-        }else{
-            statusImage.image = UIImage(named: "Fail_to_return")
-         }
+ //       }else{
+  //          statusImage.image = UIImage(named: "Fail_to_return")
+ //        }
 
         // Do any additional setup after loading the view.
         Timer.scheduledTimer(timeInterval: 2, target: self, selector:#selector(StatusViewController.dismiss as (StatusViewController) -> () -> ()), userInfo: nil, repeats: false)

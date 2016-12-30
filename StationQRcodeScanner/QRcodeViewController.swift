@@ -32,7 +32,7 @@ class QRcodeViewController: UIViewController,AVCaptureMetadataOutputObjectsDeleg
         print("user_ID:\(appDelegate.jsonBackUserID)")
         print("Token:\(appDelegate.jsonBackToken)")
         print("staion1:\(location)")
-        let timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(QRcodeViewController.callingWaitingPage), userInfo: nil, repeats: true)
+        let timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(QRcodeViewController.callingWaitingPage), userInfo: nil, repeats: true)
 
         
         // Get an instance of the AVCaptureDevice class to initialize a device object and provide the video
@@ -217,10 +217,28 @@ class QRcodeViewController: UIViewController,AVCaptureMetadataOutputObjectsDeleg
                         }
                     }
                     task.resume()
-                    
+                    let svc = self.storyboard?.instantiateViewController(withIdentifier: "StatusViewController") as! StatusViewController
+                    svc.QRcodeStatus = metadataObj.stringValue
+                    var count = 0
+                    for viewController in self.childViewControllers {
+                        if (viewController is StatusViewController) {
+                            count = count + 1
+                        }
+                    }
+                    if count == 0 { //計數器為零才再增加新的view
+                        sv = svc.view
+                        self.view.addSubview(sv!)
+                        self.addChildViewController(svc)
+                        print(metadataObj.stringValue)
+                        svc.didMove(toParentViewController: self)
+                        print("靠邀")
+                    }
+
+
                 }
                 catch {
                     print("error\(error.localizedDescription)")
+
                 }
 
                 //                dismiss(animated: true, completion: {
@@ -228,8 +246,8 @@ class QRcodeViewController: UIViewController,AVCaptureMetadataOutputObjectsDeleg
                 //                })
                 
                 //               let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let svc = self.storyboard?.instantiateViewController(withIdentifier: "StatusViewController") as! StatusViewController
-                svc.QRcodeStatus = metadataObj.stringValue
+
+                
                 
                 
                 //                ViewController.QRcodeStatus = self.getTheCode
@@ -237,21 +255,8 @@ class QRcodeViewController: UIViewController,AVCaptureMetadataOutputObjectsDeleg
                 //                        svc.view.frame = self.view.bounds
                 //                  svc.delegate = metadataObj.stringValue as! StatusViewController?
                 
-                var count = 0
-                for viewController in self.childViewControllers {
-                    if (viewController is StatusViewController) {
-                        count = count + 1
-                    }
-                }
-                if count == 0 {
-                    sv = svc.view
-                    self.view.addSubview(sv!)
-                    self.addChildViewController(svc)
-                    print(metadataObj.stringValue)
-                    svc.didMove(toParentViewController: self)
-                    print("靠邀")
-                }
-            }else{
+                            }else{ //此為判斷是否有值else
+                
                 
             
             }
