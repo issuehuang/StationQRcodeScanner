@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
+var appDelegate = UIApplication.shared.delegate as! AppDelegate
 
 class ViewController: UIViewController, UIPickerViewDataSource ,UIPickerViewDelegate {
   
@@ -27,12 +30,12 @@ class ViewController: UIViewController, UIPickerViewDataSource ,UIPickerViewDele
     let oStaionArray = ["行天宮"]
     var didSelectLineArray = "板南線" //
     var station1 = "1"
-    
+    var appDelegate = UIApplication.shared.delegate as! AppDelegate
+
     var loginJSON = [String:Any]()
     var loginStatus = ""
     var loginAuthToken = ""
     var loginUserID = ""
-    var appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -150,7 +153,7 @@ class ViewController: UIViewController, UIPickerViewDataSource ,UIPickerViewDele
                 request.httpMethod = "POST"
                 let loverDictionary = ["email": emailText.text!, "password":passwordText.text!]
                 
-                
+
                 do {
                     
                     print("loverDictionary \(loverDictionary)")
@@ -167,7 +170,11 @@ class ViewController: UIViewController, UIPickerViewDataSource ,UIPickerViewDele
                                 try? self.loginJSON = JSONSerialization.jsonObject(with: data!) as! [String : Any]
                                 let getTheJSON = "\(self.loginJSON["message"]!)"
                                 print("getTheJSON:\(getTheJSON)")
+
                                 if getTheJSON == "Ok"{
+                                    
+                                    requestData()
+
                                     
                                     print("有在這邊嗎")
 
@@ -244,6 +251,67 @@ class ViewController: UIViewController, UIPickerViewDataSource ,UIPickerViewDele
     }
 
 }
+func requestData(){
+    let urlString = "http://139.162.76.87/api/v1/user/[:id]/show_last"
+    let parameter:Parameters = [
+        "auth_token" : appDelegate.jsonBackToken,
+        "user_id":appDelegate.jsonBackUserID,
+        "last_rent_history":appDelegate.jsonHistory,
+        "charged_amount":appDelegate.jsonMoney
+    ]
+    Alamofire.request(urlString, parameters: parameter).responseJSON {
+        (response) in
+        switch response.result{
+        case .success:
+            let jsonPackage = JSON(response.result.value)
+            //print("站點傘數量json資料包",json)
+            let jsonArrayAllLocation = jsonPackage["last_rent_history"].string
+            print("jsonPack",jsonPackage)
+            //print("所有站點json資料包",jsonArrayAllLocation)
+//           let jsonHistoryArray =
+            
+ //           let jsonArrayLocationName = jsonArrayAllLocation.first?["location_name"].stringValue
+//           for i in 0...jsonArrayAllLocation.count-1{
+//                let jsonArrayLocationName = jsonArrayAllLocation[i]["location_name"].stringValue ?? ""
+//                let jsonArrayLocationLat = (jsonArrayAllLocation[i]["location_coordinate"]["latitude"]).doubleValue
+//                let jsonArrayLocationLon = (jsonArrayAllLocation[i]["location_coordinate"]["longitude"]).doubleValue
+//                let jsonArrayLocationPlaceID = jsonArrayAllLocation[i]["location_id"].stringValue ?? ""
+//                let jsonArrayLocationRoute1a = jsonArrayAllLocation[i]["mrt_line"].arrayValue
+//                let jsonArrayLocationRoute1b = jsonArrayLocationRoute1a.first?["line_name"].stringValue ?? ""
+//                let jsonArrayLocationUMBNumber = jsonArrayAllLocation[i]["rentable_umbrella_number"].stringValue ?? ""
+//                let distanceCalculate1 = CLLocation(latitude: jsonArrayLocationLat, longitude: jsonArrayLocationLon)
+//                let distanceCalculate2 = self.userLocation?.distance(from: distanceCalculate1)
+//                if distanceCalculate2 != nil{
+//                    self.distanceCalculate3 =  Int(distanceCalculate2!)
+//                }
+//            }
+//            
+            DispatchQueue.main.async {
+                
+//                self.deCodeJsonStationResultSorted = self.deCodeJsonStationResult.sorted(by: { (lhs:StructStation, rhs:StructStation) -> Bool in
+//                    return lhs.distanceFromUserToStation < rhs.distanceFromUserToStation
+//                    // return lhs.distanceFromUserToStation > rhs.distanceFromUserToStation
+//                    //return lhs.distanceFromUserToStation.compare(rhs.distanceFromUserToStation) == .orderedDescending
+//                })
+//                print(self.deCodeJsonStationResultSorted)
+//                self.tableViewStationList.reloadData()
+            }
+            
+            
+        case .failure(let error):
+            print(error)
+            
+        }
+    }
+    
+    
+    
+    
+}
+// last
+
+
+
 
 
 
@@ -314,4 +382,3 @@ class ViewController: UIViewController, UIPickerViewDataSource ,UIPickerViewDele
 //        }else{
 //            print("fruit:\(fruitArray[row])")
 //        }
-//    }

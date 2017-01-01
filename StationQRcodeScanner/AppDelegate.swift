@@ -15,6 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var jsonBackUserID = ""
     var jsonBackToken = ""
     var userNameDidLogin = ""
+    var jsonHistory = ""
+    var jsonMoney = ""
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
