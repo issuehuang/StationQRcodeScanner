@@ -14,6 +14,8 @@ protocol StatusViewControllerDelegate{
 
 
 class StatusViewController: UIViewController {
+    
+    @IBOutlet weak var dollarOfRent: UILabel!
     var delegate:StatusViewControllerDelegate? = nil
     var QRcodeStatus:String? //接受上一頁的值
 
@@ -24,13 +26,13 @@ class StatusViewController: UIViewController {
         print("阿幹")
         
 //        if QRcodeStatus == "1234" {
-        statusImage.image = UIImage(named: "Success_to_return")
+        statusImage.image = UIImage(named: "Success_to_return-1")
  //       }else{
   //          statusImage.image = UIImage(named: "Fail_to_return")
  //        }
 
         // Do any additional setup after loading the view.
-        Timer.scheduledTimer(timeInterval: 2, target: self, selector:#selector(StatusViewController.dismiss as (StatusViewController) -> () -> ()), userInfo: nil, repeats: false)
+        Timer.scheduledTimer(timeInterval: 5, target: self, selector:#selector(StatusViewController.dismiss as (StatusViewController) -> () -> ()), userInfo: nil, repeats: false)
         
         _ = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(checkTouch), userInfo: nil, repeats: true)
         
