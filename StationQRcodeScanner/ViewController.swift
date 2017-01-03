@@ -23,9 +23,9 @@ class ViewController: UIViewController, UIPickerViewDataSource ,UIPickerViewDele
     
     @IBOutlet weak var stationPicker: UIPickerView!
     let lineArray = ["板南線","新店線","文湖線","淡水線","中蘆線"]
-    let blStationArray = ["南京復興"]
+    let blStationArray = ["板橋"]
     let gStationArray = ["松江南京"]
-    let brStationArray = ["大直"]
+    let brStationArray = ["南京復興"]
     let rStationArray = ["雙連"]
     let oStaionArray = ["行天宮"]
     var didSelectLineArray = "板南線" //
@@ -94,22 +94,22 @@ class ViewController: UIViewController, UIPickerViewDataSource ,UIPickerViewDele
             if lineArray[row] == "板南線" {
                 print("aaa")
                 didSelectLineArray = "板南線"
-            station1 = "1"
+            station1 = "100"
             }else if lineArray[row] == "新店線"{ // lineArray 的第一個等於didSelectLineArray
             didSelectLineArray = "新店線"
-                station1 = "2"
+                station1 = "82"
                 print("bbb")
             }else if lineArray[row] == "文湖線"{
             didSelectLineArray = "文湖線"
-                station1 = "3"
+                station1 = "14"
                 print("ccc")
             }else if lineArray[row] == "淡水線"{
                 didSelectLineArray = "淡水線"
-            station1 = "4"
+            station1 = "41"
                 print("ddd")
             }else if lineArray[row] == "中蘆線"{
                 didSelectLineArray = "中蘆線"
-            station1 = "5"
+            station1 = "81"
             print("eee")
             }
 
